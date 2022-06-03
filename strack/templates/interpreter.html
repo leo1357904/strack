@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>
+        {% if request.user.is_authenticated%}
+            Hi {{request.user.get_full_name}},&nbsp;
+        {% endif %}
+        Upload a C file to start Tracking the Stack!
+    </p>
+    <form enctype='multipart/form-data' class='upload_c_file ' method="post" action="{% url 'interpreter' %}">
+        {% csrf_token %}
+
+		<table class = 'styled_table'>
+		    {% for field in form %}
+            <div class="row">
+                <div class="col-md-2">    
+                {{ field.label_tag }}
+                </div>
+                <div class="col-md-10 pull-left"> {{ field }} </div>
+                <div col-md-2>{{ field.errors }} </div>
+            </div>
+            {% endfor %}
+		</table>
+		<button id='id_upload_c_file_button' type="submit">Submit</button>
+
+    </form>
+    {% if error %}
+        <p class="errorlist">{{ error }}</p>
+    {% endif %}
+    {% if code_ready %}
+        {% load static %}
+	    <div class = 'container-fluid'>
+	    	<div class = 'row justify-content-start'>
+		        <div class = 'col-sm-auto'> {{title}} </div>
+                {% if request.user.is_authenticated %}
+                    {% if code in request.user.profile.starring.all %}
+                        <div class = 'col-sm'><a href="{% url 'code-page-unstar' code.id %}">
+                            unStar!
+                        </a></div>
+                    {% else %}
+                        <div class = 'col-sm'><a href="{% url 'code-page-star' code.id %}">
+                            Star!
+                        </a></div>
+                    {% endif %}
+                {% endif %}
+		    </div>
+	    </div>
+        {% comment %} <iframe src="{% static 'file_storage/' %}{{code_file}}" width="700" height="400" style="background-color: white"></iframe> {% endcomment %}
+        <div class = 'container-fluid'>
+            <table id='id_code_table' class='interp_table'>
+            </table>
+        </div>
+        <div>
+            <button onclick="executeStep()">Step</button>
+            <button onclick="executeStepIn()">Step In</button>
+            <button onclick="executeStepOut()">Step Out</button>
+            <button onclick="executeStepBack()">Step Back</button>
+            <button onclick="executeRestart()">Restart</button>
+        </div>
+
+        <div class="container-fluid">
+            <div class ="row justify-content-start">
+                <div id="id_assembly_instructions" class="trace col-sm">
+
+                    <table id="id_asm_table" class='interp_table'>
+                    </table>
+                </div>
+                <div id="id_registers" class="trace col-sm">
+                    <h2>Registers</h2>
+                    <table id="id_regs_table" class='interp_table'>
+                    </table>
+                </div>
+                <div class ="col-sm">
+                    <div id="id_stack" class="trace justify-content-start col">
+                        <h2>Stack</h2>
+                        <table id="id_stack_table" class='interp_table'>
+                        </table>
+                    </div>
+                    <div id="id_flags" class="trace justify-content-start col">
+                        <h2>Flags</h2>
+                        <table id="id_flags_table" class='interp_table'>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            var code_id = "{{asm_code_id}}"
+            var asm_state = "{{ asm_state }}"
+            var code_text = "{{code_text}}"
+            window.onload = initStackTrace;
+            {% comment %} window.setInterval(loadPosts, 5000); {% endcomment %}
+        </script>
+    {% endif %}
+{% endblock %}

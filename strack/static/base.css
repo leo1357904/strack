@@ -1,0 +1,330 @@
+
+body {background-color: #c38d94}
+
+.header-container {
+    background-color: #565676;
+}
+
+.big-heading {
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: left;
+    padding: 10px 50px;
+}
+
+.menu-heading {
+    font-size: large;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: left;
+    padding: 10px 20px;
+}
+
+.user-info {
+    text-align: right;
+    font-family: sans-serif; 
+    padding-right: 10px;
+    font-size: x-large;
+}
+
+.message {
+    color:blue;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    font-family: sans-serif;
+    padding: 25px 50px;
+}
+
+.search-bar {
+    text-align: center;
+    padding: 25px 50px;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: x-large;
+    padding: 25px 50px;
+}
+
+.bio-content{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 10;
+    max-height: 40;
+    word-wrap: break-word;
+    font-family: sans-serif;
+    font-size: x-large;
+    padding: 25px 50px;
+}
+
+.errorlist {
+    color:rgb(138, 39, 39);
+}
+
+.list {
+    padding: 3px;
+}
+
+.list-link {
+    padding: 5px;
+}
+
+.list-link:hover {
+     background-color:lightgray;
+}
+
+/* table, th, tr {
+    font-weight: normal;
+    text-align: left;
+} */
+.interp_table {
+    border-collapse:collapse;
+    border-spacing:0;
+    background-color: #ffffff; 
+    border: 1px solid rgb(179, 179, 179);
+    max-height: 660px;
+    overflow-y: scroll;
+    display: inline-block;
+    font-size: small;
+}
+
+.dash_table{
+    border-collapse:collapse;
+    border-spacing:0;
+    background-color: #ffffff; 
+    border: 1px solid rgb(179, 179, 179);
+    max-height: 350px; 
+    overflow-y: scroll;
+    display: inline-block;
+    font-size: small;
+}
+
+.styled_table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* .stack_table {
+    height: 222px;
+    overflow-y: scroll;
+    display: inline-block;
+} */
+
+tr{
+    border: 1px solid #ddd;
+    padding: 8px;
+ }
+
+td{
+    /* border: 1px solid #ddd; */
+    padding: 8px;
+    white-space: pre;
+}
+
+/* tr:nth-child(even) {
+    background-color: #229599;
+} */
+
+/* tr:hover {
+    background-color: rgb(217, 219, 72);
+} */
+
+/* th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+} */
+
+/* .table_header {
+    background-color: rgb(176, 29, 206)
+
+}
+
+.grey {
+    background-color: rgba(128,128,128,.25);
+} */
+
+.highlight {
+    background-color: rgb(138, 190, 254);
+}
+
+.highlight_func {
+    background-color: rgb(251, 251, 147);
+}
+
+/* .highlight_asm {
+    background-color: rgb(255, 108, 108);
+} */
+.highlight_asm {
+    background-color: rgb(254, 138, 138);
+}
+.highlight_code {
+    background-color: rgb(254, 138, 138);
+}
+
+code {
+    color: black;
+}
+
+.dash_table td{
+    width: 1%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+    white-space: normal;
+}
+/* .header_col {
+    background-color: rgb(77, 174, 204);
+}
+
+.instruc_col {
+    background-color: rgb(87, 240, 227);
+} */
+
+/* .interpreter_content {
+    width: 100%;
+} */
+
+.trace {
+    display: inline-block;
+}
+
+/* a {
+     text-decoration: none;
+     color:black;
+} */
+.button_c {
+    background-color: #8FB5E0;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: black;
+    font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    padding: 10px .8em;
+    text-align: center;
+    display: inline-block;
+    vertical-align: baseline;
+    white-space: nowrap;
+  }
+
+button {
+  background-color: #8FB5E0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: black;
+  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  padding: 10px .8em;
+  text-align: center;
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+button:hover,
+button:focus {
+  background-color: #07c;
+}
+
+
+
+
+input {
+    font-size: x-large;
+}
+
+.asm_input {
+    font-size: large;
+}
+
+div, form {
+    padding: 4px;
+}
+
+
+.navlink {
+    background-color: lightgray;
+}
+
+.letter {
+    padding: 3px;
+    font-family: sans-serif;
+    font-size: x-large;
+
+}
+
+.letter:hover {
+     background-color:lightgray;
+}
+
+.comment-container {
+    padding-left: 30px;
+}
+
+.context-user {
+    display:inline-block;
+    font-weight: bold;
+    color: #356afc;
+}
+
+.context-user:hover {
+    text-decoration: underline;
+}
+
+/* .context-content {
+    display:inline-block;
+} */
+
+.context-date {
+    display:inline-block;
+    font-size: 18px;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding: 30px;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #565676;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 4px 5px;
+    text-decoration: none;
+    display: block;
+}
+  
+
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}

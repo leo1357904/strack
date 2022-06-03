@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = 'container-fluid'>
+    <p class = 'row justify-content-center' id="id_page_name">
+        {{profile.created_by.get_full_name}}'s Profile
+    </p>
+    <div class ='row justify-content-start'>
+        <div class="col-sm-auto">
+            {% load static %}
+            {% if profile.picture %}
+                <img class="profile_img img-thumbnail" id="id_user_picture" src="{% url 'photo' profile.profile_id %}" alt="Image for {{profile.created_by.first_name}} {{profile.created_by.last_name}}" width="400" height="400">
+            {% else %}
+                <img class="profile_img img-thumbnail" id="id_user_picture" src="{% static 'images/' %}default.jpg" alt="Default Image" width="400" height="400">
+            {% endif%}
+        </div>
+
+
+        {% if profile.created_by == request.user %}
+        <div class = 'col'>
+            <form enctype="multipart/form-data" action="{% url 'profile' profile.created_by.id %}" method="post">
+                <table class = 'styled_table'>
+                    {% for field in form %}
+                    {% for error in field.errors %} 
+                    <div class = 'errorlist'>
+                        {{error}}
+                    </div>
+                    {% endfor %}
+                        <tr>                               
+                            <td>{{field}} </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <input class = 'button_c' type="submit" id="id_update_profile_button" value="Submit">
+                {% csrf_token %}
+            </form>
+        </div>
+
+        {% else %}
+            <div class="col bio-content" id="id_user_bio">
+                {{profile.bio_content}}
+            </div>
+
+
+
+        {% endif %}
+    </div>
+
+    {% if profile.created_by != request.user %}
+        <div class = 'row'>
+            {% if profile.created_by in request.user.profile.following.all %}
+                <form method="post" action="{% url 'unfollow' profile.profile_id %}">
+                    <button type="submit" id="id_unfollow">Unfollow</button>
+                    {% csrf_token %}
+                </form>
+            {% else %}
+                <form method="post" action="{% url 'follow' profile.profile_id %}">
+                    <button type="submit" id="id_follow">Follow</button>
+                    {% csrf_token %}
+                </form>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if profile.created_by == request.user %}
+    <div class="followers-container row">
+        You are following:
+        <div class = container>
+            {% for f in profile.following.all %}
+                <div class = 'row'><a href="{% url 'profile' f.id %}" id="id_profile_link_{{f}}">{{f.first_name}} {{f.last_name}}</a></div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="user-codes">
+        {{ profile.created_by.get_full_name }}'s codes<br>
+        <table class = 'dash_table table-striped'>
+            <tr>
+                <th>Title</th>
+                <th>Code File</th>
+                <th>Creation Time</th>
+                <th>User</th>
+                <th>Worth a Star?</th>
+                {% if profile.profile_id == request.user.id %}
+                    <th>Delete?</th>
+                {% endif %}
+            </tr>
+            {% if profile.created_by.assemblycode_set.all.count == 0 %}
+            <tr>
+                <td>Nothing</td>
+                <td>To</td>
+                <td>See</td>
+                <td>Here</td>
+                <td>!</td>
+                {% if profile.profile_id == request.user.id %}
+                    <th>?</th>
+                {% endif %}
+            </tr>
+            {% endif %}
+
+            {% for code in codes %}
+                <tr>
+                    <td><a href="{% url 'code' code.id %}">
+                        {{code.title}}
+                    </a></td>
+                    <td><a href="{% url 'download' code.id %}">
+                        download
+                    </a></td>
+                    <td>{{code.creation_time}}</td>
+                    <td><a href="{% url 'profile' code.created_by.id %}">
+                        {{code.created_by.get_full_name}}
+                    </a></td>
+                    {% if code in request.user.profile.starring.all %}
+                        <td><a href="{% url 'profile-unstar' pid=profile.profile_id cid=code.id %}">
+                            unStar!
+                        </a></td>
+                    {% else %}
+                        <td><a href="{% url 'profile-star' pid=profile.profile_id cid=code.id %}">
+                            Star!
+                        </a></td>
+                    {% endif %}
+                    {% if profile.profile_id == request.user.id %}
+                        <td><a href="{% url 'profile-delete-code' pid=profile.profile_id cid=code.id %}">
+                            X
+                        </a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

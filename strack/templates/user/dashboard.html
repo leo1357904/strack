@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="error"></div>
+
+    <h3 id="id_page_name">Dashboard</h3>
+
+    <div id="global" class = >
+        <p>Global codes<br></p>
+        <table class = 'dash_table table-striped'>
+            <tr>
+                <th>Title</th>
+                <th>Code File</th>
+                <th>Creation Time</th>
+                <th>User</th>
+                <th>Worth a Star?</th>
+            </tr>
+            {% if codes.count == 0 %}
+                <tr>
+                    <td>Nothing</td>
+                    <td>To</td>
+                    <td>See</td>
+                    <td>Here</td>
+                    <td>!</td>
+                </tr>
+            {% endif %}
+            {% for code in codes %}
+                <tr>
+                    <td><a href="{% url 'code' code.id %}">
+                        {{code.title}}
+                    </a></td>
+                    <td><a href="{% url 'download' code.id %}">
+                        download
+                    </a></td>
+                    <td>{{code.creation_time}}</td>
+                    {% if code.created_by.id == 1 %}
+                        <td>
+                            {{code.created_by.get_full_name}}
+                        </td>
+                    {% else %}
+                        <td><a href="{% url 'profile' code.created_by.id %}">
+                            {{code.created_by.get_full_name}}
+                        </a></td>
+                    {% endif %}
+                    {% if code in request.user.profile.starring.all %}
+                        <td><a href="{% url 'unstar' code.id %}">
+                            unStar!
+                        </a></td>
+                    {% else %}
+                        <td><a href="{% url 'star' code.id %}">
+                            Star!
+                        </a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="own-code">
+        My codes<br>
+        <table class = 'dash_table table-striped'>
+            <tr>
+                <th>Title</th>
+                <th>Code File</th>
+                <th>Creation Time</th>
+                <th>User</th>
+                <th>Worth a Star?</th>
+            </tr>
+            {% if request.user.assemblycode_set.all.count == 0 %}
+                <tr>
+                    <td>Nothing</td>
+                    <td>To</td>
+                    <td>See</td>
+                    <td>Here</td>
+                    <td>!</td>
+                </tr>
+            {% endif %}
+            {% for code in codes %}
+                {% if code.created_by == request.user %}
+                <tr>
+                    <td><a href="{% url 'code' code.id %}">
+                        {{code.title}}
+                    </a></td>
+                    <td><a href="{% url 'download' code.id %}">
+                        download
+                    </a></td>
+                    <td>{{code.creation_time}}</td>
+                    {% if code.created_by.id == 1 %}
+                        <td>
+                            {{code.created_by.get_full_name}}
+                        </td>
+                    {% else %}
+                        <td><a href="{% url 'profile' code.created_by.id %}">
+                            {{code.created_by.get_full_name}}
+                        </a></td>
+                    {% endif %}
+                    {% if code in request.user.profile.starring.all %}
+                        <td><a href="{% url 'unstar' code.id %}">
+                            unStar!
+                        </a></td>
+                    {% else %}
+                        <td><a href="{% url 'star' code.id %}">
+                            Star!
+                        </a></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="star">
+        Star codes<br>
+        <table class = 'dash_table table-striped'>
+            <tr>
+                <th>Title</th>
+                <th>Code File</th>
+                <th>Creation Time</th>
+                <th>User</th>
+                <th>Worth a Star?</th>
+            </tr>
+            {% if request.user.profile.starring.all.count == 0 %}
+                <tr>
+                    <td>Nothing</td>
+                    <td>To</td>
+                    <td>See</td>
+                    <td>Here</td>
+                    <td>!</td>
+                </tr>
+            {% endif %}
+            {% for code in codes %}
+                {% if code in request.user.profile.starring.all %}
+                <tr>
+                    <td><a href="{% url 'code' code.id %}">
+                        {{code.title}}
+                    </a></td>
+                    <td><a href="{% url 'download' code.id %}">
+                        download
+                    </a></td>
+                    <td>{{code.creation_time}}</td>
+                    {% if code.created_by.id == 1 %}
+                        <td>
+                            {{code.created_by.get_full_name}}
+                        </td>
+                    {% else %}
+                        <td><a href="{% url 'profile' code.created_by.id %}">
+                            {{code.created_by.get_full_name}}
+                        </a></td>
+                    {% endif %}
+                    {% if code in request.user.profile.starring.all %}
+                        <td><a href="{% url 'unstar' code.id %}">
+                            unStar!
+                        </a></td>
+                    {% else %}
+                        <td><a href="{% url 'star' code.id %}">
+                            Star!
+                        </a></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+    <div id="follower">
+        Follower codes<br>
+        <table class = 'dash_table table-striped'>
+            <tr>
+                <th>Title</th>
+                <th>Code File</th>
+                <th>Creation Time</th>
+                <th>User</th>
+                <th>Worth a Star?</th>
+            </tr>
+            {% if no_following_code %}
+                <tr>
+                    <td>Nothing</td>
+                    <td>To</td>
+                    <td>See</td>
+                    <td>Here</td>
+                    <td>!</td>
+                </tr>
+            {% endif %} 
+            {% for code in codes %}
+                {% if code.created_by in request.user.profile.following.all %}
+                <tr>
+                    <td><a href="{% url 'code' code.id %}">
+                        {{code.title}}
+                    </a></td>
+                    <td><a href="{% url 'download' code.id %}">
+                        download
+                    </a></td>
+                    <td>{{code.creation_time}}</td>
+                    {% if code.created_by.id == 1 %}
+                        <td>
+                            {{code.created_by.get_full_name}}
+                        </td>
+                    {% else %}
+                        <td><a href="{% url 'profile' code.created_by.id %}">
+                            {{code.created_by.get_full_name}}
+                        </a></td>
+                    {% endif %}
+                    {% if code in request.user.profile.starring.all %}
+                        <td><a href="{% url 'unstar' code.id %}">
+                            unStar!
+                        </a></td>
+                    {% else %}
+                        <td><a href="{% url 'star' code.id %}">
+                            Star!
+                        </a></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+*.pyc
+db.sqlite3
+migrations
+.DS_Store
+venv
+my_env
+.idea
+*.pdf
+*.png
+*.jpg
+*.jpeg
+config.ini
+collected_static/
+strack/static/file_storage/
+
